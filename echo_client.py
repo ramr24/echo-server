@@ -1,20 +1,23 @@
+# echo_client.py
+
 import socket
 import sys
 import traceback
 
+HOST = 'localhost'
+PORT = 10000
+
 
 def client(msg, log_buffer=sys.stderr):
-    server_address = ('localhost', 10000) # (host, port)
+    server_address = (HOST, PORT)
+
     # TODO: Replace the following line with your code which will instantiate
     #       a TCP socket with IPv4 Addressing, call the socket you make 'sock'
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # IPv4 = AF_INET, TCP = STREAM
-
     print('connecting to {0} port {1}'.format(*server_address), file=log_buffer)
 
     # TODO: connect your socket to the server here.
     sock.connect(server_address)
-
 
     # you can use this variable to accumulate the entire message received back
     # from the server
@@ -36,6 +39,7 @@ def client(msg, log_buffer=sys.stderr):
         #       do it. This will help in debugging problems
         chunk = ''
         print('received "{0}"'.format(chunk.decode('utf8')), file=log_buffer)
+        
     except Exception as e:
         traceback.print_exc()
         sys.exit(1)
@@ -43,6 +47,7 @@ def client(msg, log_buffer=sys.stderr):
         # TODO: after you break out of the loop receiving echoed chunks from
         #       the server you will want to close your client socket.
         print('closing socket', file=log_buffer)
+        sock.close()
 
         # TODO: when all is said and done, you should return the entire reply
         # you received from the server as the return value of this function.

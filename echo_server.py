@@ -4,12 +4,13 @@ import socket
 import sys
 import traceback
 
+HOST = '127.0.0.1'
+PORT = 10000
 
 def server(log_buffer=sys.stderr):
     # set an address for our server
-    HOST = '127.0.0.1'
-    PORT = 10000
     address = (HOST, PORT)
+
     # TODO: Replace the following line with your code which will instantiate
     #       a TCP socket with IPv4 Addressing, call the socket you make 'sock'
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # IPv4 = AF_INET, TCP = STREAM
@@ -82,8 +83,8 @@ def server(log_buffer=sys.stderr):
                 # TODO: When the inner loop exits, this 'finally' clause will
                 #       be hit. Use that opportunity to close the socket you
                 #       created above when a client connected.
-                conn.close()
                 print('echo complete, client connection closed', file=log_buffer)
+                conn.close()
 
     except KeyboardInterrupt:
         # TODO: Use the python KeyboardInterrupt exception as a signal to
