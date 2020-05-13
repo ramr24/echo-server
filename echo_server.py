@@ -4,13 +4,10 @@ import socket
 import sys
 import traceback
 
-HOST = '127.0.0.1'
-PORT = 10000
 
 def server(log_buffer=sys.stderr):
     # set an address for our server
-    address = (HOST, PORT)
-    # IPv4 = AF_INET, TCP = STREAM
+    address = ('127.0.0.1', 10000) # host, port
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP) 
     # Fix port is used issue
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

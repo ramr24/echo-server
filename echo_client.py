@@ -4,12 +4,9 @@ import socket
 import sys
 import traceback
 
-HOST = 'localhost'
-PORT = 10000
-
 
 def client(msg, log_buffer=sys.stderr):
-    server_address = (HOST, PORT)
+    server_address = ('localhost', 10000) # host, port
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
     print('connecting to {0} port {1}'.format(*server_address), file=log_buffer)
     # connect your socket to the server here.
@@ -34,6 +31,8 @@ def client(msg, log_buffer=sys.stderr):
         #
         #       Log each chunk you receive.  Use the print statement below to
         #       do it. This will help in debugging problems
+        # STILL NEED TO DO ********** and figure out
+
         chunk = sock.recv(16)
         print('received "{0}"'.format(chunk.decode('utf8')), file=log_buffer)
         
