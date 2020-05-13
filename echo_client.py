@@ -10,13 +10,9 @@ PORT = 10000
 
 def client(msg, log_buffer=sys.stderr):
     server_address = (HOST, PORT)
-
-    # TODO: Replace the following line with your code which will instantiate
-    #       a TCP socket with IPv4 Addressing, call the socket you make 'sock'
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # IPv4 = AF_INET, TCP = STREAM
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
     print('connecting to {0} port {1}'.format(*server_address), file=log_buffer)
-
-    # TODO: connect your socket to the server here.
+    # connect your socket to the server here.
     sock.connect(server_address)
 
     # you can use this variable to accumulate the entire message received back
@@ -27,9 +23,10 @@ def client(msg, log_buffer=sys.stderr):
     # when we are finished with it
     try:
         print('sending "{0}"'.format(msg), file=log_buffer)
-        # TODO: send your message to the server here.
-        sock.sendall(received_message)
+        # send your message to the server here
+        sock.sendall(msg.encode('utf8'))
 
+        # recieve the msg, log using print statement 
         # TODO: the server should be sending you back your message as a series
         #       of 16-byte chunks. Accumulate the chunks you get to build the
         #       entire reply from the server. Make sure that you have received
@@ -37,7 +34,7 @@ def client(msg, log_buffer=sys.stderr):
         #
         #       Log each chunk you receive.  Use the print statement below to
         #       do it. This will help in debugging problems
-        chunk = ''
+        chunk = sock.recv(16)
         print('received "{0}"'.format(chunk.decode('utf8')), file=log_buffer)
         
     except Exception as e:
@@ -49,9 +46,8 @@ def client(msg, log_buffer=sys.stderr):
         print('closing socket', file=log_buffer)
         sock.close()
 
-        # TODO: when all is said and done, you should return the entire reply
-        # you received from the server as the return value of this function.
-
+        # return the entire reply you received from the server
+        return received_message
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
