@@ -40,17 +40,9 @@ def server(log_buffer=sys.stderr):
                     # send the data received back to the client, log using print statement 
                     conn.sendall(data)
                     print('sent "{0}"'.format(data.decode('utf8')))
-                    
-                    # TODO: Check here to see whether you have received the end
-                    # of the message. If you have, then break from the `while True`
-                    # loop.
-                    # 
-                    # Figuring out whether or not you have received the end of the
-                    # message is a trick we learned in the lesson: if you don't
-                    # remember then ask your classmates or instructor for a clue.
-                    # :)
-
-                    # STILL NEED TO DO ********** and figure out
+                    # check if recieved msg, if recieved msg then break the while loop 
+                    if len(data) < 16:
+                        break
 
             except Exception as e:
                 traceback.print_exc()
