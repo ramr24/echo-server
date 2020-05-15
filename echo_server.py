@@ -29,7 +29,6 @@ def server(log_buffer=sys.stderr):
             
             try:
                 print('connection - {0}:{1}'.format(*addr), file=log_buffer)
-
                 # the inner loop will receive messages sent by the client in
                 # buffers.  When a complete message has been received, the
                 # loop will exit
@@ -47,6 +46,7 @@ def server(log_buffer=sys.stderr):
             except Exception as e:
                 traceback.print_exc()
                 sys.exit(1)
+
             finally:
                 # close the socket you created above when a client connected
                 print('echo complete, client connection closed', file=log_buffer)
